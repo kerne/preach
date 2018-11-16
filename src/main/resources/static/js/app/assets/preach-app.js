@@ -12,9 +12,9 @@
     angular.module('preachApp').
     constant(
         'urls', {
-            BASE_HERMANOS:  'http://localhost:9090/preach/hermanos',
-            BASE_ARTICULOS: 'http://localhost:9090/preach/articulos',
-            BASE_ASIGNACION: 'http://localhost:9090/preach/asignacion'
+            BASE_HERMANOS:  'http://preach-buin.herokuapp.com:9090/preach/hermanos',
+            BASE_ARTICULOS: 'http://preach-buin.herokuapp.com:9090/preach/articulos',
+            BASE_ASIGNACION: 'http://preach-buin.herokuapp.com:9090/preach/asignacion'
         });
 })();
 
