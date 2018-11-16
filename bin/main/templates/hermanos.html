@@ -1,0 +1,84 @@
+<div class="generic-container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Hermanos </span></div>
+		<div class="panel-body">
+	        <div class="formcontainer">
+	            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+	            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+	            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+	                <input type="hidden" ng-model="ctrl.hermano.id" />
+	                <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="uname">Nombre</label>
+	                        <div class="col-md-7">
+	                            <input type="text" ng-model="ctrl.hermano.nombre" id="uname" class="username form-control input-sm" placeholder="Ingrese Nombre" required ng-minlength="3"/>
+	                        </div>
+	                    </div>
+	                </div>
+
+	                <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="apellido">Apellido</label>
+	                        <div class="col-md-7">
+	                            <input type="text" ng-model="ctrl.hermano.apellido" id="apellido" class="form-control input-sm" placeholder="Enter your Age." required/>
+	                        </div>
+	                    </div>
+	                </div>
+	
+	                <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="sexo">Sexo</label>
+	                        <div class="col-md-7">
+	                        	<label>
+	                            	<input type="radio" value="M" name="sexo" ng-model="ctrl.hermano.sexo" id="M" class="form-control radio-sm" />
+	                            	Hombre
+	                            </label>
+	                            <label>
+	                            	<input type="radio" value="F" name="sexo" ng-model="ctrl.hermano.sexo" id="F" class="form-control radio-sm" />
+	                      			Mujer
+	                      		</label>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row">
+	                    <div class="form-actions floatRight">
+	                        <input type="submit"  value="{{!ctrl.hermano.idHermano ? 'Agregar' : 'Actualizar'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Limpiar</button>
+	                    </div>
+	                </div>
+	            </form>
+    	    </div>
+		</div>	
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Lista de Hermanos</span></div>
+		<div class="panel-body">
+			<div class="table-responsive">
+		        <table class="table table-hover">
+		            <thead>
+		            <tr>
+		                <th>ID</th>
+		                <th>Nombre</th>
+		                <th>Apellido</th>
+		                <th>Sexo</th>
+		                <th width="100"></th>
+		                <th width="100"></th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr ng-repeat="u in ctrl.getAllUsers() track by u.idHermano">
+		                <td>{{$index + 1}}</td>
+		                <td>{{u.nombre}}</td>
+		                <td>{{u.apellido}}</td>
+		                <td>{{u.sexo}}</td>
+		                <td><button type="button" ng-click="ctrl.editUser(u.idHermano)" class="btn btn-success custom-width">Editar</button></td>
+		                <td><button type="button" ng-click="ctrl.removeUser(u.idHermano)" class="btn btn-danger custom-width">Eliminar</button></td>
+		            </tr>
+		            </tbody>
+		        </table>		
+			</div>
+		</div>
+    </div>
+</div>

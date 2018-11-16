@@ -1,0 +1,29 @@
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-1">Fecha</div>
+		<div class="col-md-1">Dia</div>
+		<div class="col-md-1">Horario</div>
+		<div class="col-md-1" ng-repeat="art in vm.articulos">
+			{{art.descripcion}}</div>
+	</div>
+
+	<div class="row" ng-repeat="fecha in vm.schedule">
+		<div class="col-md-1">{{fecha}}</div>
+		<div class="col-md-1">dia</div>
+		<div class="col-md-1">
+			<div class="row" ng-repeat="horario in vm.listTurnos">{{horario.rango}}</div>
+		</div>
+		<div class="col-md-1" ng-repeat="art in vm.articulos">
+			<div  class="row" ng-repeat="horario in vm.listTurnos">
+					<div
+						ng-repeat="hermano in vm.programa.fecha[fecha].turno[horario.rango].parejas">
+					
+						<ul style="list-style-type: none; display: inline-block;" ng-if="hermano.length > 1" >
+							<li ng-repeat="her in hermano">{{her.nombre}}</li>
+						</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

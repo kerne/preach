@@ -1,0 +1,113 @@
+<div class="generic-container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Asignaciones</span></div>
+		<div class="panel-body">
+	        <div class="formcontainer">
+	            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+	            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+	            <form ng-submit="ctrl.add()" name="myForm" class="form-horizontal">
+	            	 <div class="panel panel-default">
+						 <h3>Hermano</h3>
+						  <ui-select ng-model="ctrl.hermano.asignado" theme="select2" ng-disabled="ctrl.disabled" style="min-width: 300px;" title="Seleccione un hermano">
+						    <ui-select-match placeholder="Seleccione a un hermano">{{$select.selected.nombre}}</ui-select-match>
+						    <ui-select-choices repeat="person in ctrl.hermanos | propsFilter: {nombre: $select.search, apellido: $select.search}">
+						      <div ng-bind-html="person.nombre | highlight: $select.search"></div>
+						      <small>
+						        Nombre: {{person.nombre}}
+						        Apellido: <span ng-bind-html="''+person.apellido | highlight: $select.search"></span>
+						      </small>
+						    </ui-select-choices>
+						  </ui-select>
+					</div>
+	               	<div class="panel panel-default">
+	               		 <h3>Dias</h3>
+					    <multiple-date-picker
+					    					  disable-days-before="ctrl.today" 
+					    					  disallow-back-past-months="true"
+					    					  ng-model="ctrl.hermano.fechas"
+					    					  enable-select-month="true"
+					    					  month-changed="ctrl.monthChanged" ></multiple-date-picker>
+					
+					</div>
+					<div class="panel panel-default">
+						<h3>Articulos</h3>
+						<label ng-repeat="articulo in ctrl.articulos">
+						  <input type="checkbox" checklist-model="ctrl.hermano.articulos" checklist-value="articulo"> {{articulo.descripcion}}
+						</label>
+					</div>
+					<div class="panel panel-default">
+						<h3>Turnos</h3>
+						<label ng-repeat="turno in ctrl.listTurnos">
+						  <input type="checkbox"
+						  		 checklist-model="ctrl.hermano.turnosSelected" 
+						  		 ng-change="ctrl.checkSelected(turno, checked)" 
+						  		 checklist-value="turno"> {{turno.rango}}
+						</label>
+					</div>
+					 <div class="row">
+					 	<div class="col-xs-12">
+    	    				<button type="submit" class="btn btn-success btn-lg pull-right">Agregar</button>
+    	    			</div>
+    	    		</div>
+	            </form>
+    	    </div>
+    	    
+    	   
+    	    
+    	    <div class="panel panel-default" >
+	        <!-- Default panel contents -->
+	        <div class="panel-heading"><span class="lead">Lista de Asignaciones</span></div>
+			<div class="panel-body">
+				<div class="table-responsive">
+			        <table class="table table-hover">
+			            <thead>
+			            <tr>
+			                <th>ID</th>
+			                <th>Nombre</th>
+			                <th>Apellido</th>
+			                <th>Turnos</th>
+			                <th width="100">Fechas</th>
+				            <th width="100">Articulo</th>
+				            </tr>
+				            </thead>
+				            <tbody>
+				            <tr ng-repeat="asig in ctrl.asignados.asignaciones">
+				                <td>{{$index + 1}}</td>
+				                <td>{{asig.asignado.nombre}}</td>
+				                <td>{{asig.asignado.apellido}}</td>
+				                <td>
+				                	<ul ng-repeat="turno in asig.turnosSelected" ng-if="turno.selected">
+				                		<li>{{turno.rango}}</li>
+				                	</ul>
+				                </td>
+				                <td>
+				                	<ul ng-repeat="fecha in asig.fechas">
+				                		<li>{{ctrl.changeFormat(fecha)}}</li>
+				                	</ul>
+				                </td>
+				                <td>
+				                	<ul ng-repeat="articulo in asig.articulos">
+				                		<li>{{articulo.descripcion}}</li>
+				                	</ul>
+				                </td>
+				            </tr>
+				            </tbody>
+				        </table>		
+					</div>
+				</div>
+				  <div class="row">
+					 	<div class="col-xs-12">
+    	    				<a class="btn btn-success btn-lg pull-right" ng-if="!ctrl.asignados.idAsignacion" ng-click="ctrl.grabar()">Guardar</a>
+    	    				<a class="btn btn-success btn-lg pull-right" ng-if="ctrl.asignados.idAsignacion" ng-click="ctrl.actualizar()">actualizar</a>
+    	    			</div>
+    			</div>
+		    </div>
+		</div>	
+    </div>
+</div>
+
+<div class="container">
+	<daily ng-if="ctrl.asignados.asignaciones.length > 0" asignados="ctrl.asignados.asignaciones" articulos="ctrl.articulos"></daily>
+</div>
+
